@@ -1,6 +1,6 @@
-# Creating backend part for diploma work.
-## Name: News-explorer-api.
-#### Instruction
+# News-explorer-api.
+## Creating backend part for diploma work.
+#### Instruction:
 | Question | Answer |
 |----------------|:---------:|
 | To clone repo | git clone |
