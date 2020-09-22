@@ -1,17 +1,25 @@
+// подключаем фрейимворк
 const express = require('express');
+// подключаем плагины
 const mongoose = require('mongoose');
-
 const bodyParser = require('body-parser');
 const helmet = require('helmet');
+
 const {
   celebrate, Joi, errors, Segments,
 } = require('celebrate');
+
+//блок роутов
+const articleRouter = require('./routes/article.js');
+const userRouter = require('./routes/user.js');
+//блок контроллеров
+const { createUser } = require('./controllers/user');
 const { login } = require('./controllers/login');
 
 const { PORT = 3000 } = process.env;
 
 const app = express();
-
+//подключаемся к локальной базе данных мангуст
 mongoose.connect('mongodb://localhost:27017/news-explorer-api', {
   useNewUrlParser: true,
   useCreateIndex: true,
@@ -23,19 +31,29 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(helmet());
 
-// app.post('/signin', celebrate({
-//   [Segments.BODY]: Joi.object({
-//     email: Joi.string().required().email(),
-//     password: Joi.string().required().min(8),
-//     name:Joi.string().required().min(2).max(30),
-//   }),
-// }), login);
+// app.use('/user', userRouter);
+// app.use('/article', articleRouter);
 
-// app.all('/*', () => {
-//   throw new NotFoundError('Запрашиваемый  ресурс  не  найден');
-// });
+app.post('/signin', celebrate({
+  [Segments.BODY]: Joi.object({
+    email: Joi.string().required().email(),
+    password: Joi.string().required().min(8),
+  }),
+}), login);
 
-// app.use(errors());
+app.post('/signup', celebrate({
+  [Segments.BODY]: Joi.object({
+    email: Joi.string().required().email(),
+    password: Joi.string().required().min(8),
+    name: Joi.string().required().min(2).max(30),
+  }),
+}), createUser);
+
+app.all('/*', () => {
+  throw new NotFoundError('Запрашиваемый  ресурс  не  найден');
+});
+
+app.use(errors());
 
 
 app.use((err, req, res, next) => {
