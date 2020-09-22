@@ -1,0 +1,23 @@
+{
+  "name": "news-explorer-api",
+  "version": "1.0.0",
+  "description": "backend part of diploma work",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Chukmarov/news-explorer-api.git"
+  },
+  "author": "Roman Chukmarov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Chukmarov/news-explorer-api/issues"
+  },
+  "homepage": "https://github.com/Chukmarov/news-explorer-api#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
+}
