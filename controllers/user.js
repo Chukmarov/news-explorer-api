@@ -30,12 +30,6 @@ module.exports.createUser = (req, res, next) => {
     .catch((err) => { next(err); });
 };
 
-// module.exports.getUsers = (req, res, next) => {
-//   User.find({})
-//     .then((users) => res.send({ data: users }))
-//     .catch((err) => next(err));
-// };
-
 module.exports.getUserByEmail = async (req, res, next) => {
   await User.findById(req.params.email)
     .orFail(new NotFoundError('Этот пользователь отсутсвует в базе'))

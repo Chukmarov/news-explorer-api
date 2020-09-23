@@ -2,7 +2,7 @@ const router = require('express').Router(); // вызываем метод Route
 const {
   celebrate, Joi, Segments,
 } = require('celebrate');
-const { createArticle, getAllSavedArticles } = require('../controllers/article');
+const { createArticle, getAllSavedArticles, deleteArticle } = require('../controllers/article');
 
 router.post('/', celebrate({
   [Segments.BODY]: Joi.object({
@@ -18,10 +18,10 @@ router.post('/', celebrate({
 
 router.get('/', getAllSavedArticles);
 
-// router.delete('/:cardid', celebrate({
-//   [Segments.PARAMS]: Joi.object({
-//     cardid: Joi.string().hex(),
-//   }),
-// }), deleteCard);
+router.delete('/:articleId', celebrate({
+  [Segments.PARAMS]: Joi.object({
+    articleId: Joi.string().hex(),
+  }),
+}), deleteArticle);
 
 module.exports = router;

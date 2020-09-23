@@ -18,16 +18,17 @@ module.exports.getAllSavedArticles = (req, res, next) => {
     .catch((err) => next(err));
 };
 
-// module.exports.deleteCard = (req, res, next) => {
-//   Card.findById(req.params.cardid)
-//     .orFail(new NotFoundError('Данная карточка отсутсвует в базе'))
-//     .then((card) => {
-//       if (!(req.user._id === card.owner.toString())) {
-//         throw new RightsError('Невозможно удалять карточки других пользователей');
-//       }
-//       return card;
-//     })
-//     .then((card) => Card.findByIdAndRemove(card._id))
-//     .then((card) => res.send({ data: card }))
-//     .catch((err) => { next(err); });
-// };
+module.exports.deleteArticle = (req, res, next) => {
+  console.log(req.params.articleId);
+  Article.findById(req.params.articleId)
+    .orFail(new NotFoundError('Данная статья отсутвует, либо была ранее удалена'))
+    .then((article) => {
+      if (!(req.user._id === article.owner.toString())) {
+        throw new RightsError('Не знаю как такое возможно! Однако, невозможно удалять сохраненные статьи других пользователей');
+      }
+      return article;
+    })
+    .then((article) => Article.findByIdAndRemove(article._id))
+    .then((article) => res.send({ data: article }))
+    .catch((err) => { next(err); });
+};

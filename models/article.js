@@ -54,7 +54,6 @@ const articleSchema = new mongoose.Schema({
   owner: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
-    select: false,
   },
 
 });
