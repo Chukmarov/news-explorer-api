@@ -15,6 +15,8 @@ const userRouter = require('./routes/user.js');
 //блок контроллеров
 const { createUser } = require('./controllers/user');
 const { login } = require('./controllers/login');
+const auth = require('./middlewares/auth');
+const { NotFoundError } = require('./errors/notFoundError');
 
 const { PORT = 3000 } = process.env;
 
@@ -31,9 +33,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(helmet());
 
-// app.use('/user', userRouter);
-// app.use('/article', articleRouter);
-
 app.post('/signin', celebrate({
   [Segments.BODY]: Joi.object({
     email: Joi.string().required().email(),
@@ -48,6 +47,11 @@ app.post('/signup', celebrate({
     name: Joi.string().required().min(2).max(30),
   }),
 }), createUser);
+
+app.use(auth);
+
+// app.use('/user', userRouter);
+// app.use('/article', articleRouter);
 
 app.all('/*', () => {
   throw new NotFoundError('Запрашиваемый  ресурс  не  найден');
