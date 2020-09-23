@@ -1,14 +1,10 @@
-// const router = require('express').Router();
-// const {
-//   celebrate, Joi, Segments,
-// } = require('celebrate');
+const router = require('express').Router();
+const {
+  celebrate, Joi, Segments,
+} = require('celebrate');
 
-// const { getUserByEmail } = require('../controllers/user.js');
+const { getInfoAboutMe } = require('../controllers/user.js');
 
-// router.get('/me', celebrate({
-//   [Segments.BODY]: Joi.object({
-//     email: Joi.string().required().email(),
-//   }),
-// }), getUserByEmail);
+router.get('/me', getInfoAboutMe);
 
-// module.exports = router;
+module.exports = router;

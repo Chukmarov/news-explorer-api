@@ -42,3 +42,9 @@ module.exports.getUserByEmail = async (req, res, next) => {
     .then((user) => res.send({ data: user }))
     .catch((err) => next(err));
 };
+
+module.exports.getInfoAboutMe = (req, res, next) => {
+  User.findById(req.user._id)
+    .then((user) => res.send({ data: user }))
+    .catch((err) => next(err));
+};
