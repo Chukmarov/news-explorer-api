@@ -1,4 +1,4 @@
-// подключаем фрейимворк
+// подключаем фреймворк
 const express = require('express');
 // подключаем плагины
 const mongoose = require('mongoose');
@@ -17,6 +17,7 @@ const { createUser } = require('./controllers/user');
 const { login } = require('./controllers/login');
 //блок middlewares
 const auth = require('./middlewares/auth');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 //блок errors
 const { NotFoundError } = require('./errors/notFoundError');
 
@@ -34,6 +35,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(helmet());
+app.use(requestLogger);
 
 app.post('/signin', celebrate({
   [Segments.BODY]: Joi.object({
@@ -59,6 +61,7 @@ app.all('/*', () => {
   throw new NotFoundError('Запрашиваемый  ресурс  не  найден');
 });
 
+app.use(errorLogger);
 app.use(errors());
 
 
