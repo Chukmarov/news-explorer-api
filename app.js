@@ -50,7 +50,7 @@ app.post('/signup', celebrate({
 
 app.use(auth);
 
-app.use('/user', userRouter);
+app.use('/users', userRouter);
 // app.use('/article', articleRouter);
 
 app.all('/*', () => {
