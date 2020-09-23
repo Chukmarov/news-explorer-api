@@ -51,7 +51,7 @@ app.post('/signup', celebrate({
 app.use(auth);
 
 app.use('/users', userRouter);
-// app.use('/article', articleRouter);
+app.use('/article', articleRouter);
 
 app.all('/*', () => {
   throw new NotFoundError('Запрашиваемый  ресурс  не  найден');
