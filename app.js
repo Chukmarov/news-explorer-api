@@ -15,7 +15,9 @@ const userRouter = require('./routes/user.js');
 //блок контроллеров
 const { createUser } = require('./controllers/user');
 const { login } = require('./controllers/login');
+//блок middlewares
 const auth = require('./middlewares/auth');
+//блок errors
 const { NotFoundError } = require('./errors/notFoundError');
 
 const { PORT = 3000 } = process.env;
@@ -51,7 +53,7 @@ app.post('/signup', celebrate({
 app.use(auth);
 
 app.use('/users', userRouter);
-app.use('/article', articleRouter);
+app.use('/articles', articleRouter);
 
 app.all('/*', () => {
   throw new NotFoundError('Запрашиваемый  ресурс  не  найден');

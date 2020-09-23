@@ -12,11 +12,11 @@ module.exports.createArticle = (req, res, next) => {
     .catch((err) => { next(err); });
 };
 
-// module.exports.getCards = (req, res, next) => {
-//   Card.find({})
-//     .then((cards) => res.send({ data: cards }))
-//     .catch((err) => next(err));
-// };
+module.exports.getAllSavedArticles = (req, res, next) => {
+  Article.find({ owner: req.user._id })
+    .then((cards) => res.send({ data: cards }))
+    .catch((err) => next(err));
+};
 
 // module.exports.deleteCard = (req, res, next) => {
 //   Card.findById(req.params.cardid)
