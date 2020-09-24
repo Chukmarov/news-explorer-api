@@ -1,6 +1,6 @@
 # News-explorer-api.
 ## Creating backend part for diploma work.
-### This server part of service where you cat search news in web. Read them and save. Enjoy)
+### This server part of service where you can search news in web. Read them and save. Enjoy)
 #### Instruction:
 | Question | Answer |
 |----------------|:---------:|
