@@ -1,7 +1,4 @@
 const router = require('express').Router();
-const {
-  celebrate, Joi, Segments,
-} = require('celebrate');
 
 const { getInfoAboutMe } = require('../controllers/user.js');
 

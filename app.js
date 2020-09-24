@@ -1,6 +1,7 @@
-// подключаем фреймворк
+require('dotenv').config();
+//  подключаем фреймворк
 const express = require('express');
-// подключаем плагины
+//  подключаем плагины
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const helmet = require('helmet');
@@ -9,22 +10,22 @@ const {
   celebrate, Joi, errors, Segments,
 } = require('celebrate');
 
-//блок роутов
+//  блок роутов
 const articleRouter = require('./routes/article.js');
 const userRouter = require('./routes/user.js');
-//блок контроллеров
+//  блок контроллеров
 const { createUser } = require('./controllers/user');
 const { login } = require('./controllers/login');
-//блок middlewares
+//  блок middlewares
 const auth = require('./middlewares/auth');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-//блок errors
+//  блок errors
 const { NotFoundError } = require('./errors/notFoundError');
 
 const { PORT = 3000 } = process.env;
 
 const app = express();
-//подключаемся к локальной базе данных мангуст
+//  подключаемся к локальной базе данных мангуст
 mongoose.connect('mongodb://localhost:27017/news-explorer-api', {
   useNewUrlParser: true,
   useCreateIndex: true,
@@ -63,7 +64,6 @@ app.all('/*', () => {
 
 app.use(errorLogger);
 app.use(errors());
-
 
 app.use((err, req, res, next) => {
   if (err.name === 'ValidationError') {

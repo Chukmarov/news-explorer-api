@@ -3,7 +3,9 @@ const { NotFoundError } = require('../errors/notFoundError');
 const { RightsError } = require('../errors/rightsError');
 
 module.exports.createArticle = (req, res, next) => {
-  const { keyword, title, text, date, source, link, image } = req.body;
+  const {
+    keyword, title, text, date, source, link, image,
+  } = req.body;
 
   Article.create({
     keyword, title, text, date, source, link, image, owner: req.user._id,
@@ -19,7 +21,6 @@ module.exports.getAllSavedArticles = (req, res, next) => {
 };
 
 module.exports.deleteArticle = (req, res, next) => {
-  console.log(req.params.articleId);
   Article.findById(req.params.articleId)
     .orFail(new NotFoundError('Данная статья отсутвует, либо была ранее удалена'))
     .then((article) => {
