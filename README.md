@@ -8,6 +8,6 @@
 | To install | npm install |
 | To develop project| npm run dev |
 | To visit| npm run dev |
-| To visit server| news.students.nomoreparties.co |
+| To visit server| news-api.students.nomoreparties.co |
 
 
