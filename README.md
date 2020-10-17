@@ -9,5 +9,11 @@
 | To develop project| npm run dev |
 | To visit| npm run dev |
 | To visit server| news-api.students.nomoreparties.co |
+|----------------|:---------:|
 
+##### Functional:
+*  GET /users/me (return information about user),
+*  GET /articles (return all saved articles),
+*  POST /articles (save article in own page),
+*  DELETE /articles/:articleId (delete article from saved)
 
