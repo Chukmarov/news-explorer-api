@@ -27,6 +27,25 @@ const { NotFoundError } = require('./errors/notFoundError');
 const { PORT = 3000 } = process.env;
 
 const app = express();
+
+const corsOptions = {
+  origin: [
+    'https://news-api.tk',
+    'http://localhost:8080',
+  ],
+  methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE', 'OPTIONS'],
+  preflightContinue: false,
+  optionsSuccessStatus: 204,
+  allowedHeaders: [
+    'Content-Type',
+    'origin',
+    'x-access-token',
+    'Authorization'
+  ],
+  credentials: true
+};
+
+
 //  подключаемся к локальной базе данных мангуст
 mongoose.connect('mongodb://localhost:27017/news-explorer-api', {
   useNewUrlParser: true,
@@ -37,10 +56,11 @@ mongoose.connect('mongodb://localhost:27017/news-explorer-api', {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use(cors());
+app.use('*', cors(corsOptions));
 
 app.use(helmet());
 app.use(requestLogger);
+
 
 app.post('/signin', celebrate({
   [Segments.BODY]: Joi.object({
