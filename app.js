@@ -32,6 +32,7 @@ const corsOptions = {
   origin: [
     'https://news-api.tk',
     'http://localhost:8080',
+    'https://chukmarov.github.io/',
   ],
   methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE', 'OPTIONS'],
   preflightContinue: false,
@@ -60,7 +61,6 @@ app.use('*', cors(corsOptions));
 
 app.use(helmet());
 app.use(requestLogger);
-
 
 app.post('/signin', celebrate({
   [Segments.BODY]: Joi.object({
