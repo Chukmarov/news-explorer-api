@@ -31,7 +31,7 @@ const app = express();
 const corsOptions = {
   origin: [
     'https://news-api.tk',
-    'http://localhost:8080',
+    'http://localhost:3000',
     'https://chukmarov.github.io'
   ],
   methods: 'GET, HEAD, PUT, PATCH, POST, DELETE, OPTIONS',
