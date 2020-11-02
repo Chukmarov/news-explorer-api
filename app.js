@@ -26,25 +26,43 @@ const { NotFoundError } = require('./errors/notFoundError');
 
 const { PORT = 3000 } = process.env;
 
-const app = express();
+const allowedList = [
+  'https://news-api.tk',
+  'https://www.news-api.tk',
+  'http://localhost:8080',
+  'https://chukmarov.github.io'
+];
 
 const corsOptions = {
-  origin: [
-    'https://news-api.tk',
-    'http://localhost:8080',
-    'https://chukmarov.github.io'
-  ],
-  methods: 'GET, HEAD, PUT, PATCH, POST, DELETE, OPTIONS',
-  preflightContinue: false,
-  optionsSuccessStatus: 204,
-  allowedHeaders: [
-    'Content-Type',
-    'origin',
-    'x-access-token',
-    'Authorization'
-  ],
-  credentials: true
+origin: (origin, callback) => {
+  if (allowedList.indexOf(origin) !== -1) {
+    callback(null, true);
+  } else {
+    callback(new Error('Not allowed by CORS'));
+  }
+},
+credentials: true,
 };
+
+const app = express();
+
+// const corsOptions = {
+//   origin: [
+//     'https://news-api.tk',
+//     'http://localhost:8080',
+//     'https://chukmarov.github.io'
+//   ],
+//   methods: 'GET, HEAD, PUT, PATCH, POST, DELETE, OPTIONS',
+//   preflightContinue: false,
+//   optionsSuccessStatus: 204,
+//   allowedHeaders: [
+//     'Content-Type',
+//     'origin',
+//     'x-access-token',
+//     'Authorization'
+//   ],
+//   credentials: true
+// };
 
 //  подключаемся к локальной базе данных мангуст
 mongoose.connect('mongodb://localhost:27017/news-explorer-api', {
@@ -53,10 +71,12 @@ mongoose.connect('mongodb://localhost:27017/news-explorer-api', {
   useFindAndModify: false,
 });
 
+app.use(cors(corsOptions));
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use('*', cors(corsOptions));
+// app.use('*', cors(corsOptions));
 
 app.use(helmet());
 app.use(requestLogger);
