@@ -26,23 +26,23 @@ const { NotFoundError } = require('./errors/notFoundError');
 
 const { PORT = 3000 } = process.env;
 
-const allowedList = [
-  'https://news-api.tk',
-  'https://www.news-api.tk',
-  'http://localhost:8080',
-  'https://chukmarov.github.io'
-];
+// const allowedList = [
+//   'https://news-api.tk',
+//   'https://www.news-api.tk',
+//   'http://localhost:8080',
+//   'https://chukmarov.github.io'
+// ];
 
-const corsOptions = {
-origin: (origin, callback) => {
-  if (allowedList.indexOf(origin) !== -1) {
-    callback(null, true);
-  } else {
-    callback(new Error('Not allowed by CORS'));
-  }
-},
-credentials: true,
-};
+// const corsOptions = {
+// origin: (origin, callback) => {
+//   if (allowedList.indexOf(origin) !== -1) {
+//     callback(null, true);
+//   } else {
+//     callback(new Error('Not allowed by CORS'));
+//   }
+// },
+// credentials: true,
+// };
 
 const app = express();
 
@@ -71,11 +71,12 @@ mongoose.connect('mongodb://localhost:27017/news-explorer-api', {
   useFindAndModify: false,
 });
 
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
+
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-
+app.use(cors());
 // app.use('*', cors(corsOptions));
 
 app.use(helmet());
