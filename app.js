@@ -28,9 +28,11 @@ const { PORT = 3000 } = process.env;
 
 const corsOptions = {
   origin: [
-    'https://news-api.tk/',
-    'http://localhost:8080/',
-    'https://chukmarov.github.io/'
+    'https://news-api.tk',
+    'https://www.news-api.tk',
+    'http://localhost:8080',
+    'https://chukmarov.github.io',
+    'https://www.chukmarov.github.io',
   ],
   methods: 'GET, HEAD, PUT, PATCH, POST, DELETE, OPTIONS',
   preflightContinue: false,
