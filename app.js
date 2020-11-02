@@ -32,7 +32,7 @@ const corsOptions = {
   origin: [
     'https://news-api.tk',
     'http://localhost:8080',
-    'https://chukmarov.github.io'
+    'https://chukmarov.github.io/news-explorer-frontend'
   ],
   methods: 'GET, HEAD, PUT, PATCH, POST, DELETE, OPTIONS',
   preflightContinue: false,
